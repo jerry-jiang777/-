@@ -64,8 +64,50 @@ def insert():
     print("学生信息录入完毕!!!")
 
 
+def show_student(studentList):
+    if not studentList:
+        print(f"(o@.@o) 无数据信息 (o@.@o) \n")
+        return
+    else:
+        for info in studentList:
+            print(f"学生ID: {info['id']}, 姓名: {info['name']}, english: {info['english']}, python: {info['python']}, c: {info['c']}")
+
+
 def search():
-    pass
+    mark = True
+    student_query = []
+    while mark:
+        id = ""
+        name = ""
+        if os.path.exists(filename): # 判断文件是否存在
+            mode = input(f"按ID查输入1, 按姓名查输入2: ")
+            if mode == "1":
+                id = input(f"请输入学生ID: ")
+            elif mode == "2":
+                name = input(f"请输入学生姓名：")
+            else:
+                print(f"您输入的有误，请重新输入！")
+                search()
+            with open(filename, "r") as file:
+                student = file.readlines()
+                for list in student:
+                    d = dict(eval(list))
+                    if id is not "":
+                        if d["id"] == id:
+                            student_query.append(d)                                
+                    elif name is not "":
+                        if d["name"] == name:
+                            student_query.append(d)
+                show_student(student_query)
+                student_query.clear()
+                inputMark = input(f"是否继续查询？ (y/n): ")  
+                if inputMark == 'y':
+                    mark = True
+                else:
+                    mark = False
+        else:
+            print(f"暂未保存数据信息...")
+            return
 
 
 def delete():
@@ -103,9 +145,35 @@ def delete():
                 mark = False
 
 def modify():
-    pass
-
-
+    show()
+    if os.path.exists(filename):
+        with open(filename, "r") as rfile:
+            student_old = rfile.readlines()
+    else:
+        return
+    studentid = input(f"请输入要修改的学生ID: ")
+    with open(filename, "w") as wfile: # 以只写的模式打开文件
+        for student in student_old:
+            d = dict(eval(student)) # 字符串转换成字典
+            if d['id'] == studentid: # 是否是要修改的学生
+                print(f"找到了这名同学，可以修改他的信息！")
+                while True:
+                    try:
+                        d["name"] = input(f"请输入姓名: ")
+                        d["english"] = int(input(f"请输入英语成绩: "))
+                        d["python"] = int(input(f"请输入python成绩: "))
+                        d["c"] = int(input(f"请输入c语言成绩: "))
+                    except:
+                        print(f"您输入的有误，请重新输入: ")
+                    else:
+                        break
+                student = str(d) # 将字典转换成字符串
+                wfile.write(student + "\n")
+            else:
+                wfile.write(student)
+    mark = input(f"是否继续修改其他学生信息？ (y/n): ")
+    if mark == "y":
+        modify()
 def sort():
     pass
 

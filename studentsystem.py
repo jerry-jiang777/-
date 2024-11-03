@@ -179,11 +179,28 @@ def sort():
 
 
 def total():
-    pass
+    if os.path.exists(filename):
+        with open(filename, "r") as rfile:
+            student_old = rfile.readlines()
+            if student_old:
+                print(f"共有{len(student_old)} 名学生! ")
+    else:
+        print(f"暂未保存数据信息...")
 
 
 def show():
-    pass
+    student_new = []
+    if os.path.exists(filename):
+        with open(filename, "r") as rfile:
+            student_old = rfile.readlines()
+            if student_old:
+                for list in student_old:
+                    d = dict(eval(list))
+                    student_new.append(d)
+                if student_new:
+                    show_student(student_new)
+    else:
+        print(f"暂未保存数据信息...")
 
 
 def main():

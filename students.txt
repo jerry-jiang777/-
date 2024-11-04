@@ -1,3 +1,6 @@
 {'id': '1002', 'name': 'Alice', 'english': 100, 'python': 99, 'c': 98}
 {'id': '1003', 'name': 'Helen', 'english': 99, 'python': 100, 'c': 100}
 {'id': '1001', 'name': 'cici', 'english': 99, 'python': 100, 'c': 100}
+{'id': '1006', 'name': 'cc', 'english': 100, 'python': 100, 'c': 100}
+{'id': '1004', 'name': '武器大师', 'english': 100, 'python': 100, 'c': 100}
+{'id': '1005', 'name': '光辉女郎', 'english': 88, 'python': 88, 'c': 88}
